@@ -1,5 +1,5 @@
-# SIT_Hack_23
-*SIT Hackathon 2023 - Under Development*
+# Checklister
+*Checklister website for machines and equipment. Uses the TCMProject template*
 
 ## Installation
 **The recommended python version is 3.11**
