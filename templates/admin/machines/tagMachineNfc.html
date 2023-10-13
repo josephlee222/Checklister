@@ -40,7 +40,10 @@
                     <h5 class="card-title">Write Tag</h5>
                     <div class="w-100 d-flex flex-column align-items-center justify-content-center">
                         <span class="material-icons mb-3" style="font-size: 196px; opacity: 50%" id="nfc-status-icon">{{ "wifi_tethering" if id else "highlight_alt" }}</span>
-                        <p class="mb-0" id="nfc-status-text">{{  "NFC initializing. Please wait..." if id else "Please select a machine to write" }}</p>
+                        <p class="mb-3 text-center" id="nfc-status-text">{{  "Click the button below to start writing" if id else "Please select a machine to write" }}</p>
+                        {% if id %}
+                            <button {{ disabled if not id }} onclick="writeNfc('{{ url_for('adminMachines.tagMachine', id=id) }}')" class="btn custom-btn" id="nfc-status-button">Write tag</button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -48,10 +51,5 @@
     </div>
 {% endblock %}
 {% block scripts %}
-    {% if id %}
     <script src="{{ url_for('static', filename='js/nfc.js') }}"></script>
-    <script>
-        writeNfc("{{ url_for('adminMachines.tagMachine', id=id) }}")
-    </script>
-    {% endif %}
 {% endblock %}
