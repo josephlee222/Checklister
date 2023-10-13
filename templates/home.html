@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block nav %}
+    {{ normalNavControls.normalNavControls(1) }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card white mb-3 mb-md-0">
+                <div class="card-body">
+                    <h5 class="card-title">Welcome to {{ websiteName }}</h5>
+                    <p class="card-text">Please note that only authorised users are allowed to use the services available on this website.</p>
+                    <a href="{{ url_for('auth.login') }}"><button class="btn custom-btn">Login to {{ websiteName }}</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card white">
+                <div class="card-body">
+                    <h5 class="card-title">Get Started</h5>
+                    <img class="w-100 mb-3" src="{{ url_for('static', filename='img/nfc-vector.avif') }}">
+                    <p class="card-text">Use your phone's NFC function to scan a tag to access the checklist form<br>(Make sure your phone is NFC compatible and has been turned on)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

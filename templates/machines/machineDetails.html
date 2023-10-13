@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+    Machine Details
+{% endblock %}
+{% block nav %}
+    {{ normalNavControls.normalNavControls(0) }}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">precision_manufacturing</span>
+        <div>
+            <h1>Machine</h1>
+            <h6 class="m-0">{{ machine.name }}</h6>
+        </div>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3 mb-md-0">
+                    <div class="card-body">
+                        <h5 class="card-title">Conduct Checklist</h5>
+                        <p class="card-text">Start filling in the checklist for this machine by clicking the button below.</p>
+                        <a href="#"><button class="btn custom-btn">Start Checklist</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card white">
+                    <div class="card-body">
+                        <h5 class="card-title">Machine Information</h5>
+                        <div class="mb-3">
+                            {{ infoBox.infoBox("Tag ID", machine.name) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ infoBox.infoBox("Machine Type", type.name) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ infoBox.infoBox("Room", "None") }}
+                        </div>
+                        <div>
+                            {{ infoBox.infoBox("Notes", machine.notes) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+{% endblock %}

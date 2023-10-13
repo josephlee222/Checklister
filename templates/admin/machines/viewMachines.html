@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Machines{% endblock %}
+{% block nav %}
+    {% include "includes/adminNavControls.html" %}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/datatables.css') }}"/>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.2/r-2.4.0/datatables.min.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">precision_manufacturing</span>
+        <div>
+            <h1>Machines</h1>
+            <h6 class="m-0">Configure existing machines</h6>
+        </div>
+    </div>
+    <a href="{{ url_for("adminMachines.createMachine") }}">
+        <button class="btn custom-btn mb-3">Create Machine</button>
+    </a>
+    <div class="row overflow-auto">
+        <div class="col-12">
+            <table class="table table-striped w-100" id="machines">
+                <thead>
+                <th>Tag ID</th>
+                <th>Machine Type</th>
+                <th>Room</th>
+                <th>Actions</th>
+                </thead>
+                <tbody>
+                {% for machine in machines %}
+                    <tr>
+                        <td>{{ machines[machine]["name"] }}</td>
+                        <td>{{ types[machines[machine]["machineType"]]["name"] }}</td>
+                        <td>None</td>
+                        <td class="text-nowrap">
+                            <a href="{{ url_for('machines.viewMachineDetails', id=machines[machine]["id"]) }}"><button class="btn custom-btn">Submit Checklist</button></a>
+                            <a href="{{ url_for('adminMachines.tagMachine', id=machines[machine]["id"]) }}"><button class="btn custom-btn">Write NFC</button></a>
+                            <a href="#"><button class="btn custom-btn">Edit</button></a>
+                            <a href="#"><button class="btn btn-danger" disabled>Delete</button></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            $('#machines').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+{% endblock %}

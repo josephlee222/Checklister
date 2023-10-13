@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}
+    NFC Writer
+{% endblock %}
+{% block nav %}
+    {% include "includes/adminNavControls.html" %}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">nfc</span>
+        <div>
+            <h1>NFC Writer</h1>
+            <h6 class="m-0">Link a machine to a NFC tag</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 mb-3 mb-lg-0">
+            <div class="card white">
+                <div class="card-body">
+                    <h5 class="card-title">Select machine to write</h5>
+                    <div>
+                        {{ infoBox.infoBox("Currently writing", selected if selected else "No machine selected") }}
+                    </div>
+                    <hr>
+                    <form method="post">
+                        <div class="mb-3">
+                            {{ formHelper.renderField(form.name) }}
+                        </div>
+                        {{ formHelper.renderField(form.submit) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card white">
+                <div class="card-body">
+                    <h5 class="card-title">Write Tag</h5>
+                    <div class="w-100 d-flex flex-column align-items-center justify-content-center">
+                        <span class="material-icons mb-3" style="font-size: 196px; opacity: 50%" id="nfc-status-icon">{{ "wifi_tethering" if id else "highlight_alt" }}</span>
+                        <p class="mb-0" id="nfc-status-text">{{  "NFC initializing. Please wait..." if id else "Please select a machine to write" }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    {% if id %}
+    <script src="{{ url_for('static', filename='js/nfc.js') }}"></script>
+    <script>
+        writeNfc("{{ url_for('adminMachines.tagMachine', id=id) }}")
+    </script>
+    {% endif %}
+{% endblock %}

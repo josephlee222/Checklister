@@ -1,0 +1,8 @@
+{% macro profileControls(active) %}
+    <div class="col-lg-3 mb-3 mb-lg-0">
+        <div class="list-group">
+            <a href="{{ url_for("profile.viewProfile") }}" {% if active == 1 %}class="list-group-item list-group-item-action align-items-center d-flex active"  aria-current="true" {% else %} class="list-group-item list-group-item-action align-items-center d-flex"{% endif %}><span class="material-icons me-2">badge</span>Profile</a>
+            <a href="{{ url_for("profile.viewAddresses") }}" {% if active == 5 %}class="list-group-item list-group-item-action align-items-center d-flex active"  aria-current="true" {% else %} class="list-group-item list-group-item-action align-items-center d-flex"{% endif %}><span class="material-icons me-2">local_shipping</span>Delivery Addresses</a>
+        </div>
+    </div>
+{% endmacro %}

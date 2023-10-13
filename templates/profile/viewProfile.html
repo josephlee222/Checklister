@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}
+    My Profile
+{% endblock %}
+{% block nav %}
+    {{ normalNavControls.normalNavControls() }}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">face</span>
+        <div>
+            <h1>My Profile</h1>
+            <h6 class="m-0">{{ session["user"]["email"] }}</h6>
+        </div>
+    </div>
+    <div class="row">
+        {{ profileControls.profileControls(1) }}
+        <div class="col-lg-9">
+            <div class="d-flex align-items-center mb-4">
+                <h2 class="h4 flex-grow-1 m-0">Profile Information</h2>
+                <a href="{{ url_for("profile.editProfile") }}"><button class="btn custom-btn">Edit Profile</button></a>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    {{ infoBox.infoBox("Your Name", user.getName()) }}
+                </div>
+                <div class="col-md-4">
+                    {{ infoBox.infoBox("Birthday", user.getBirthday().strftime('%d/%m/%Y') if user.getBirthday() else "Not Specified") }}
+                </div>
+                <div class="col-md-4">
+                    {{ infoBox.infoBox("Phone Number", user.getPhone() if user.getPhone() else "Not Specified") }}
+                </div>
+                {{ infoBox.infoBox("E-mail Address", user.getEmail()) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/viewProfile.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,6 @@
+<!--Future file for normal navbar-->
+{% macro normalNavControls(active) %}
+    <li class="nav-item">
+        <a class="nav-link d-flex align-items-center{% if active == 1 %} active{% endif %}" href="{{ url_for("home") }}"><span class="material-icons navbar-icon me-1">home</span>Home</a>
+    </li>
+{% endmacro %}

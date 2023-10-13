@@ -1,0 +1,26 @@
+{% if session["user"]["accountType"] == "admin" %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Users
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item d-flex align-items-center" href="{{ url_for("adminUsers.viewAllUsers") }}"><span class="material-icons me-1">groups</span>View All Users</a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="{{ url_for("adminUsers.addUser") }}"><span class="material-icons me-1">person_add</span>Create User</a></li>
+        </ul>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Machines
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item d-flex align-items-center" href="{{ url_for("adminMachines.viewMachines") }}"><span class="material-icons me-1">precision_manufacturing</span>View Machines</a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="{{ url_for("adminMachines.createMachine") }}"><span class="material-icons me-1">add</span>Create Machine</a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="#"><span class="material-icons me-1">nfc</span>NFC Tag Writer</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item d-flex align-items-center" href="{{ url_for("adminMachines.viewMachineTypes") }}"><span class="material-icons me-1">category</span>Manage Machine Types</a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="{{ url_for("adminMachines.createMachineType") }}"><span class="material-icons me-1">add</span>Create Type</a></li>
+        </ul>
+    </li>
+{% endif %}

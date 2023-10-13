@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Machine Types{% endblock %}
+{% block nav %}
+    {% include "includes/adminNavControls.html" %}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/datatables.css') }}"/>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.2/r-2.4.0/datatables.min.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">category</span>
+        <div>
+            <h1>Machine Types</h1>
+            <h6 class="m-0">Configure machine types and checklists</h6>
+        </div>
+    </div>
+    <a href="{{ url_for("adminMachines.createMachineType") }}">
+        <button class="btn custom-btn mb-3">Create Type</button>
+    </a>
+    <div class="row overflow-auto">
+        <div class="col-12">
+            <table class="table table-striped w-100" id="machineTypes">
+                <thead>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+                </thead>
+                <tbody>
+                {% for type in types %}
+                    <tr>
+                        <td>{{ types[type]["name"] }}</td>
+                        <td>{{ types[type]["description"] }}</td>
+                        <td class="text-nowrap">
+                            <a href="#"><button class="btn custom-btn">Checklist</button></a>
+                            <a href="#"><button class="btn custom-btn">Edit</button></a>
+                            <a href="#"><button class="btn btn-danger" disabled>Delete</button></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            $('#machineTypes').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+{% endblock %}

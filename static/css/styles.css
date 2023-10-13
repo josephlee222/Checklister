@@ -1,0 +1,410 @@
+/*--- 
+
+TCMProject CSS File
+Please use the variables for colouring
+Ex.
+Buttons, sliders: var(--secondary-colour)
+Navbar, card, etc...: var(--primary-colour)
+
+---*/
+
+/*--- Universal Styles ---*/
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700&display=swap');
+
+:root {
+    --primary-colour: #D22B2B;
+    --primary-dark-colour: #A82222;
+    --primary-light-colour: #DB5555;
+    --secondary-colour: #FFC107;
+    --secondary-colour-dark: #FFA000;
+    --secondary-colour-light: #FFD54F;
+    --disabled-colour: dimgrey;
+    --text-colour: white;
+    --text-colour-primary: white;
+    --text-colour-secondary: black;
+    --text-colour-background: black;
+    --background-colour: white
+}
+
+* {
+    font-family: 'Archivo', sans-serif;
+}
+
+body {
+    background-color: var(--background-colour);
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+article {
+    color: var(--text-colour-background);
+}
+
+.alert p {
+    color: inherit;
+    margin-bottom: 0;
+}
+
+nav {
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+    background-color: var(--primary-colour);
+}
+
+.white {
+    color: white;
+}
+
+.card {
+    background-color: var(--primary-colour);
+    border-radius: 4px;
+}
+
+nav p, .card *:not(.btn):not(.badge):not(.form-control):not(a) {
+    color: var(--text-colour-primary);
+}
+
+.list-group {
+    border-radius: 4px;
+}
+
+.list-group .list-group-item {
+    background-color: var(--primary-colour);
+    color: var(--text-colour-primary);
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.list-group .list-group-item.active {
+    color: var(--secondary-colour);
+    border-color: var(--secondary-colour);
+    border-width: 3px;
+    font-weight: 700;
+}
+
+.card.white, .list-group .list-group-item.active {
+    background-color: white;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+.card.white *:not(.btn):not(.badge):not(.btn span):not(a) {
+    color: var(--text-colour-background);
+}
+
+.card-title,
+.display-5 {
+    font-weight: 700;
+}
+
+.table {
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, .125) !important;
+}
+
+table td, table th {
+    border: 1px solid rgba(0, 0, 0, .125) !important;
+}
+
+/*--- Custom element Styles ---*/
+
+.btn, .form-control, .fc .fc-button {
+    border-radius: 4px;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+    transition-duration: 0.25s;
+    border: none;
+}
+
+.form-control {
+    outline: 1px solid #ccc;
+}
+
+.card .form-label {
+    color: var(--text-colour-primary)
+}
+
+.btn:hover:enabled, .form-control:hover:enabled {
+    text-decoration: none;
+    box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active:enabled, .form-control:focus:enabled {
+    box-shadow: inset 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+}
+
+.btn.custom-btn {
+    background-color: var(--secondary-colour);
+    color: var(--text-colour-secondary);
+
+}
+
+/*Note: Firefox just implemented this, style may not apply to all web browsers yet (Works on all chromium browsers)*/
+a:has(button) {
+    text-decoration: none;
+}
+
+a {
+    color: var(--secondary-colour);
+}
+
+.paginate_button {
+    color: var(--secondary-colour) !important;
+}
+
+.btn.custom-btn:disabled {
+    background-color: var(--disabled-colour);
+    color: white;
+}
+
+.btn.custom-btn:enabled:hover {
+    background-color: var(--secondary-colour-dark);
+}
+
+.btn.custom-btn:enabled:active {
+    color: var(--text-colour-secondary);
+    background-color: var(--secondary-colour-dark);
+}
+
+.custom-btn.transparent-btn {
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.custom-btn.transparent-btn:hover {
+    background-color: rgba(0, 0, 0, .125);
+}
+
+.modal-title {
+    color: black;
+}
+
+.dropdown-item:active {
+    background-color: var(--secondary-colour);
+}
+
+.nav-tabs .nav-link {
+    color: var(--secondary-colour)
+}
+
+/*--- Website Specific Styles ---*/
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    box-shadow: 0px -2px 2px 0px rgba(0, 0, 0, 0.25);
+    min-height: 50px;
+    background-color: var(--primary-colour);
+}
+
+footer h2, footer a {
+    color: var(--text-colour-primary);
+}
+
+footer .footer-credit {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+a.white:hover {
+    text-decoration: underline;
+    opacity: 0.75;
+    color: white;
+}
+
+.card-img-top {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: 250px;
+    object-fit: cover;
+}
+
+.h-shadow {
+    transition-duration: 0.25s;
+}
+
+.gallery-img {
+    border: 1px solid rgba(0, 0, 0, .125);
+    cursor: pointer;
+}
+
+.h-shadow:hover {
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+    z-index: 1;
+}
+
+.material-icons.logout {
+    font-size: initial;
+}
+
+.main-splash {
+    background-image: url("/static/img/main_background.webp");
+    background-size: cover;
+    height: 500px;
+}
+
+.login-card-img {
+    background-image: url("/static/img/main_background.webp");
+    background-size: cover;
+    border-radius: 4px 0 0 4px;
+}
+
+.main-splash h1, .main-splash h2 {
+    color: white;
+}
+
+.logo {
+    border-radius: 3px;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.feature-icon {
+    font-size: 128px;
+    background-color: var(--primary-colour);
+    color: var(--text-colour-primary);
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    text-align: center;
+}
+
+hr {
+    border-top: 2px solid rgba(0, 0, 0, .35) !important;
+}
+
+hr.dropdown-divider {
+    border-top: 1px solid rgba(0, 0, 0, .2) !important;
+}
+
+footer hr {
+    border-top: 3px solid rgba(0, 0, 0, .25) !important;
+}
+
+.preview-img {
+    height: 150px;
+    object-fit: contain;
+}
+
+.card.white {
+    background-color: white;
+    box-shadow: None;
+    margin: 0;
+}
+
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+    background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+.carousel-item img {
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.carousel.product-carousel {
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+}
+
+.cart-img {
+    object-fit: contain;
+}
+
+.bg-custom {
+    background-color: var(--secondary-colour);
+}
+
+.active > .page-link, .page-link.active {
+    background-color: var(--secondary-colour);
+    border-color: var(--secondary-colour);
+    color: white !important;
+}
+
+.disabled > .page-link, .page-link.active {
+
+    color: grey !important;
+}
+
+.paginate_button > .page-link, .page-link.active {
+    color: var(--secondary-colour);
+}
+
+.card.splash {
+    background-color: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+}
+
+.status-icon {
+    font-size: 36px;
+}
+
+.navbar-icon {
+    font-size: 1rem;
+}
+
+.product-img {
+    object-fit: cover;
+    border-radius: 4px 4px 0 0;
+}
+
+.blog-banner-img {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+@media screen and (max-width: 767px) {
+    .fc-toolbar.fc-header-toolbar {
+        font-size: 50%
+    }
+
+    .login-card-img-col {
+        height: 200px;
+    }
+
+    .login-card-img {
+        border-radius: 4px 4px 0 0;
+    }
+}

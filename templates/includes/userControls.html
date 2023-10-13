@@ -1,0 +1,37 @@
+{% if session["user"] %}
+    <div class="navbar-nav me-1">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="material-icons navbar-icon me-1">person</span>
+                {{ session["user"]["name"] }}
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item d-flex align-items-center" href="{{ url_for("profile.viewProfile") }}"><span
+                        class="material-icons me-1">person</span>My Profile</a></li>
+                <hr class="dropdown-divider">
+                <li><a class="dropdown-item d-flex align-items-center" onclick="increaseZoom()" style="cursor: pointer"><span
+                        class="material-icons me-1">add</span>Zoom In</a></li>
+                <li><a class="dropdown-item d-flex align-items-center" onclick="decreaseZoom()" style="cursor: pointer"><span
+                        class="material-icons me-1">remove</span>Zoom Out</a></li>
+                <li><a class="dropdown-item d-flex align-items-center" onclick="resetZoom()"
+                       style="cursor: pointer"><span class="material-icons me-1">undo</span>Reset Zoom</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                {% if session["user"]["accountType"] == "admin" %}
+                    <li><a class="dropdown-item d-flex align-items-center"
+                           href="{{ url_for("adminUsers.viewAllUsers") }}"><span class="material-icons me-1">construction</span>Admin
+                        Panel</a></li>
+                {% endif %}
+                <li><a class="dropdown-item text-danger d-flex align-items-center" href="/logout"><span
+                        class="material-icons me-1">logout</span>Logout</a></li>
+            </ul>
+        </li>
+        {% else %}
+    </div>
+
+    {% include "includes/accessibilityDropdown.html" %}
+    <a href="/login">
+        <button class="btn custom-btn mt-2 mt-lg-0">Login/Register</button>
+    </a>
+{% endif %}
