@@ -15,7 +15,7 @@
         <ul class="dropdown-menu">
             <li><a class="dropdown-item d-flex align-items-center" href="{{ url_for("adminMachines.viewMachines") }}"><span class="material-icons me-1">precision_manufacturing</span>View Machines</a></li>
             <li><a class="dropdown-item d-flex align-items-center" href="{{ url_for("adminMachines.createMachine") }}"><span class="material-icons me-1">add</span>Create Machine</a></li>
-            <li><a class="dropdown-item d-flex align-items-center" href="#"><span class="material-icons me-1">nfc</span>NFC Tag Writer</a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="{{ url_for('adminMachines.tagMachine') }}"><span class="material-icons me-1">nfc</span>NFC Tag Writer</a></li>
             <li>
                 <hr class="dropdown-divider">
             </li>

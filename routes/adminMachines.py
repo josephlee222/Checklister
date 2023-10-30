@@ -1,10 +1,14 @@
+import os
 import shelve
 
 from flask import flash, Blueprint, render_template, request, session, redirect, url_for
+from werkzeug.utils import secure_filename
 
+from classes.ChecklistItem import ChecklistItem
 from classes.Machine import Machine
 from classes.MachineType import MachineType
-from forms import createMachineTypeForm, createMachineForm, selectNfcMachineForm
+from forms import createMachineTypeForm, createMachineForm, selectNfcMachineForm, createChecklistFileForm, \
+    editChecklistFileForm
 from functions import flashFormErrors, adminAccess
 
 adminMachines = Blueprint("adminMachines", __name__)
@@ -36,6 +40,65 @@ def createMachineType():
         flashFormErrors("Unable to create the machine type", form.errors)
 
     return render_template("admin/machines/createMachineType.html", form=form)
+
+
+@adminMachines.route("/admin/machines/types/<id>")
+@adminMachines.route("/admin/machines/types/<id>/new", endpoint="createMachineTypeFile", methods=['GET', 'POST'])
+@adminMachines.route("/admin/machines/types/<id>/edit/<itemId>", endpoint="editMachineTypeFile", methods=['GET', 'POST'])
+@adminAccess
+def viewMachineTypeDetails(id, itemId=0):
+    with shelve.open("machineTypes", writeback=True) as types:
+        t = types[id]
+
+        match request.endpoint:
+            case "adminMachines.createMachineTypeFile":
+                form = createChecklistFileForm()
+                if form.validate_on_submit():
+                    name = form.name.data
+                    filename = form.filename.data
+                    checklistFile = ChecklistItem(name)
+                    bPath = "static/uploads/checklists/" + str(checklistFile.id)
+                    os.makedirs(bPath)
+
+                    sPath = secure_filename(filename.filename)
+                    path = os.path.join(bPath, sPath)
+                    filename.save(path)
+                    checklistFile.path = path
+                    t.createChecklistItem(checklistFile)
+                    print(vars(checklistFile))
+                    flash("Successfully uploaded checklist PDF", category="success")
+                    return redirect(url_for("adminMachines.viewMachineTypeDetails", id=id))
+                else:
+                    flashFormErrors("Unable to upload the PDF checklist", form.errors)
+
+                return render_template("admin/machines/createChecklistFile.html", type=t, form=form)
+            case "adminMachines.editMachineTypeFile":
+                form = editChecklistFileForm()
+                f = t.checklist[int(itemId)]
+                if form.validate_on_submit():
+                    name = form.name.data
+                    filename = form.filename.data
+
+                    f.filename = name
+                    if filename:
+                        bPath = "static/uploads/checklists/" + str(f.id)
+                        sPath = secure_filename(filename.filename)
+                        path = os.path.join(bPath, sPath)
+                        filename.save(path)
+                        f.path = path
+                    flash("Successfully uploaded checklist PDF", category="success")
+                    return redirect(url_for("adminMachines.viewMachineTypeDetails", id=id))
+                else:
+                    flashFormErrors("Unable to upload the PDF checklist", form.errors)
+
+                form.name.data = f.filename
+
+                return render_template("admin/machines/editChecklistFile.html", type=t, form=form, f=f)
+
+
+
+
+    return render_template("admin/machines/viewMachineType.html", type=t)
 
 
 @adminMachines.route("/admin/machines", methods=['GET', 'POST'])

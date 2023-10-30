@@ -36,7 +36,7 @@
                         <td>{{ types[type]["name"] }}</td>
                         <td>{{ types[type]["description"] }}</td>
                         <td class="text-nowrap">
-                            <a href="#"><button class="btn custom-btn">Checklist</button></a>
+                            <a href="{{ url_for("adminMachines.viewMachineTypeDetails", id=types[type]["id"]) }}"><button class="btn custom-btn">Checklist</button></a>
                             <a href="#"><button class="btn custom-btn">Edit</button></a>
                             <a href="#"><button class="btn btn-danger" disabled>Delete</button></a>
                         </td>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-    Machine Details
+    {{ machine.name }}
 {% endblock %}
 {% block nav %}
     {{ normalNavControls.normalNavControls(0) }}
@@ -21,7 +21,7 @@
             <div class="col-md-6">
                 <div class="card mb-3 mb-md-0">
                     <div class="card-body">
-                        <h5 class="card-title">Conduct Checklist</h5>
+                        <h5 class="card-title mb-3">Conduct Checklist</h5>
                         <p class="card-text">Start filling in the checklist for this machine by clicking the button below.</p>
                         <a href="#"><button class="btn custom-btn">Start Checklist</button></a>
                     </div>
@@ -30,7 +30,7 @@
             <div class="col-md-6">
                 <div class="card white">
                     <div class="card-body">
-                        <h5 class="card-title">Machine Information</h5>
+                        <h5 class="card-title mb-3">Machine Information</h5>
                         <div class="mb-3">
                             {{ infoBox.infoBox("Tag ID", machine.name) }}
                         </div>
@@ -41,7 +41,7 @@
                             {{ infoBox.infoBox("Room", "None") }}
                         </div>
                         <div>
-                            {{ infoBox.infoBox("Notes", machine.notes) }}
+                            {{ infoBox.infoBox("Notes", machine.notes, mb=false) }}
                         </div>
                     </div>
                 </div>

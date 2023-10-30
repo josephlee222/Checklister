@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ type.name }} - Upload Checklist PDF
+{% endblock %}
+{% block nav %}
+    {% include "includes/adminNavControls.html" %}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">edit</span>
+        <div>
+            <h1>Upload Checklist PDF</h1>
+            <h6 class="m-0">{{ type.name }}</h6>
+        </div>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="h4">Checklist PDF information</h2>
+                <div class="mb-3">
+                    {{ formHelper.renderField(form.name) }}
+                </div>
+                <div class="mb-3">
+                    {{ formHelper.renderField(form.filename, hint="It is recommended to convert the checklist PDF to a fillable form PDF before uploading for easier form filling.") }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    {{ form.csrf_token }}
+                    {{ formHelper.renderField(form.submit) }}
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

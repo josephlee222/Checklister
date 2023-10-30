@@ -251,3 +251,26 @@ class selectNfcMachineForm(Form):
         validators.DataRequired(message="Tag ID is required")
     ])
     submit = SubmitField("Set to writer")
+
+
+class createChecklistFileForm(FlaskForm):
+    name = StringField("File Name", [
+        validators.DataRequired(message="File name is required")
+    ])
+    filename = FileField("PDF File", validators=[
+        FileRequired("PDF checklist file is required"),
+        FileAllowed(['pdf'], message='Only PDF files are accepted'),
+    ])
+
+    submit = SubmitField("Upload PDF")
+
+
+class editChecklistFileForm(FlaskForm):
+    name = StringField("File Name", [
+        validators.DataRequired(message="File name is required")
+    ])
+    filename = FileField("PDF File", validators=[
+        FileAllowed(['pdf'], message='Only PDF files are accepted'),
+    ])
+
+    submit = SubmitField("Edit PDF")

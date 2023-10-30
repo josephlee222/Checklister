@@ -71,6 +71,10 @@ def websiteContextInit():
         "now": datetime.now().date(),
     }
 
+@app.template_filter("toDateString")
+def toDateString(timestamp):
+    return datetime.fromtimestamp(timestamp).strftime('%d/%m/%Y, %H:%M:%S')
+
 def initialization():
     print("Init code start")
     os.environ['TZ'] = 'Asia/Singapore'

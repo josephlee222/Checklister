@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ type.name }}
+{% endblock %}
+{% block nav %}
+    {% include "includes/adminNavControls.html" %}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">checklist</span>
+        <div>
+            <h1>Checklist</h1>
+            <h6 class="m-0">{{ type.name }}</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 mb-lg-0 mb-3">
+            <div class="card white">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Machine Type Details</h5>
+                    <div class="mb-3">
+                        {{ infoBox.infoBox("Machine Type Name", type.name) }}
+                    </div>
+                    <div>
+                        {{ infoBox.infoBox("Description", type.description, mb=False) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card white">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Checklist PDF Files</h5>
+                    <a href="{{ url_for("adminMachines.createMachineTypeFile", id=type.id) }}" class="w-100"><button class="btn custom-btn w-100">Upload Checklist PDF</button></a>
+                    <hr>
+                    <div>
+                        {% if type.checklist|length > 0 %}
+                            {% for item in type.checklist %}
+                                <div class="card white mb-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title">{{ item.filename }}</h6>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                {{ infoBox.infoBox("First Uploaded On", item.createdOn|toDateString, mb=False) }}
+                                            </div>
+                                            <div class="col-6">
+                                                {{ infoBox.infoBox("Last Updated", item.updatedOn|toDateString, mb=False) }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            <a href="{{ url_for("adminMachines.editMachineTypeFile", id=type.id, itemId=loop.index0) }}"><button class="btn custom-btn">Edit</button></a>
+                                            <a onclick="showDeleteModal('Placeholder name', '#')"><button class="btn btn-danger">Delete</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card white">
+                                <div class="card-body text-center">
+                                    <p class="mb-0">No checklist PDFs available.</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteLabel">Delete Checklist PDF?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="delete-treatment-text">
+                    Delete Treatment? (Placeholder)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a id="delete-treatment-link"><button type="button" class="btn btn-danger">Delete</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/viewMachineType.js') }}"></script>
+{% endblock %}

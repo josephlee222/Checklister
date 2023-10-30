@@ -9,13 +9,13 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
 
 def flashFormErrors(title, errors):
     if errors:
-        errortext = f"<b>{title}:</b>"
+        errortext = f"<b>{title}:</b><ul class='m-0'>"
         print(errors)
         for errorlist in errors:
             print(errorlist)
             for error in errors[errorlist]:
-                errortext += f"<br>{error}"
-
+                errortext += f"<li>{error}</li>"
+        errortext += "</ul>"
         flash(Markup(errortext), category="error")
 
 

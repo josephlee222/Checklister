@@ -1,4 +1,4 @@
-{% macro renderField(field, w=False) %}
+{% macro renderField(field, w=False, hint=None) %}
     {% if not field.type == "SubmitField" and not field.type == "BooleanField" %}
         <div class="d-flex align-items-center">
             {{ field.label(class="form-label me-2") }}
@@ -32,5 +32,8 @@
                 {% endfor %}
             </div>
         {% endif %}
+    {% endif %}
+    {% if hint %}
+        <small class="small mt-3 text-muted">{{ hint }}</small>
     {% endif %}
 {% endmacro %}

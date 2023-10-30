@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ type.name }} - Edit Checklist PDF
+{% endblock %}
+{% block nav %}
+    {% include "includes/adminNavControls.html" %}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block head %}
+    <script src=" https://cdn.jsdelivr.net/npm/pdfjs-dist@3/build/pdf.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/pdfjs-dist@3/web/pdf_viewer.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">edit</span>
+        <div>
+            <h1>Edit Checklist PDF</h1>
+            <h6 class="m-0">{{ f.filename }}</h6>
+        </div>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="h4">Checklist PDF information</h2>
+                <div class="mb-3">
+                    {{ formHelper.renderField(form.name) }}
+                </div>
+                <div class="mb-3">
+                    {{ formHelper.renderField(form.filename, hint="It is recommended to convert the checklist PDF to a fillable form PDF before uploading for easier form filling.") }}
+                </div>
+                {{ form.csrf_token }}
+                {{ formHelper.renderField(form.submit) }}
+            </div>
+            <div class="col-lg-6">
+                <div class="card white">
+                    <div class="card-body">
+                        <h5 class="card-title">Current PDF form preview</h5>
+                        <iframe id="pdf-js-viewer" src="/{{ f.path }}" width="100%" height="500px" style="border-radius: 5px"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/editChecklistFile.js') }}"></script>
+{% endblock %}
