@@ -220,7 +220,7 @@ class deleteUserForm(Form):
     submit = SubmitField("Confirm Delete")
 
 class createMachineTypeForm(Form):
-    name = StringField("Type Name (eg. Vertex, Midas)", [
+    name = StringField("Type Name", [
         validators.Length(3, 64, message="Name must be between 3 to 64 characters"),
         validators.DataRequired(message="Name is required")
     ])

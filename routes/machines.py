@@ -9,7 +9,8 @@ from functions import flashFormErrors, adminAccess, loginAccess
 machines = Blueprint("machines", __name__)
 
 
-@machines.route("/machine/<id>", methods=['GET', 'POST'])
+@machines.route("/machine/<id>")
+@machines.route("/machine/<id>/checklist", endpoint="selectMachineChecklist")
 @loginAccess
 def viewMachineDetails(id):
     m = ""
@@ -19,5 +20,9 @@ def viewMachineDetails(id):
 
     with shelve.open("machineTypes") as types:
         t = types[m.machineType]
+
+    match request.endpoint:
+        case "machines.selectMachineChecklist":
+            return render_template("machines/selectChecklist.html", type=t, machine=m)
 
     return render_template("machines/machineDetails.html", type=t, machine=m)

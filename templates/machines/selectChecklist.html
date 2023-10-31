@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ machine.name }}
+{% endblock %}
+{% block nav %}
+    {{ normalNavControls.normalNavControls(0) }}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">precision_manufacturing</span>
+        <div>
+            <h1>Machine</h1>
+            <h6 class="m-0">{{ machine.name }}</h6>
+        </div>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card white mb-3 mb-md-0">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Select Checklist Type</h5>
+                        {% if type.checklist|length > 0 %}
+                            {% for f in type.checklist %}
+                                <div class="card white mb-1">
+                                    <div class="card-body">
+                                        <h6 class="card-title">{{ f.filename }}</h6>
+                                        <a href="#"><button class="btn custom-btn">Select Checklist</button></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card white">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Machine Information</h5>
+                        <div class="mb-3">
+                            {{ infoBox.infoBox("Tag ID", machine.name) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ infoBox.infoBox("Machine Type", type.name) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ infoBox.infoBox("Room", "None") }}
+                        </div>
+                        <div>
+                            {{ infoBox.infoBox("Notes", machine.notes, mb=false) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+{% endblock %}
