@@ -28,7 +28,6 @@
                 <thead>
                 <th>Tag ID</th>
                 <th>Machine Type</th>
-                <th>Room</th>
                 <th>Actions</th>
                 </thead>
                 <tbody>
@@ -36,9 +35,9 @@
                     <tr>
                         <td>{{ machines[machine]["name"] }}</td>
                         <td>{{ types[machines[machine]["machineType"]]["name"] }}</td>
-                        <td>None</td>
                         <td class="text-nowrap">
                             <a href="{{ url_for('machines.viewMachineDetails', id=machines[machine]["id"]) }}"><button class="btn custom-btn">Submit Checklist</button></a>
+                            <a href="{{ url_for('adminMachines.viewMachinesSubmissions', id=machines[machine]["id"]) }}"><button class="btn custom-btn">Submissions</button></a>
                             <a href="{{ url_for('adminMachines.tagMachine', id=machines[machine]["id"]) }}"><button class="btn custom-btn">Write NFC</button></a>
                             <a href="#"><button class="btn custom-btn">Edit</button></a>
                             <a href="#"><button class="btn btn-danger" disabled>Delete</button></a>

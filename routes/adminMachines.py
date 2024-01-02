@@ -112,6 +112,35 @@ def viewMachines():
 
     return render_template("admin/machines/viewMachines.html", types=m_types, machines=m)
 
+@adminMachines.route("/admin/machines/<id>", methods=['GET', 'POST'])
+@adminAccess
+def viewMachinesSubmissions(id):
+    with shelve.open("machines") as machines:
+        m = machines[id]
+
+    with shelve.open("submissions") as submissions:
+        s = dict(submissions)
+
+    with shelve.open("users") as users:
+        u = dict(users)
+
+    return render_template("admin/machines/viewMachinesSubmissions.html", s=s, m=m, u=u)
+
+
+@adminMachines.route("/admin/machines/<id>/<sid>")
+@adminAccess
+def viewSubmission(id, sid):
+    with shelve.open("machines") as machines:
+        m = machines[id]
+
+    with shelve.open("submissions") as submissions:
+        s = submissions[sid]
+
+    with shelve.open("users") as users:
+        u = users[s.userId]
+
+    return render_template("admin/machines/viewSubmission.html", s=s, m=m, u=u)
+
 
 @adminMachines.route("/admin/machines/add", methods=['GET', 'POST'])
 @adminAccess

@@ -274,3 +274,10 @@ class editChecklistFileForm(FlaskForm):
     ])
 
     submit = SubmitField("Edit PDF")
+
+class submitChecklistFileForm(FlaskForm):
+    filename = FileField("PDF File", validators=[
+        FileAllowed(['pdf'], message='Only PDF files are accepted'),
+    ])
+
+    submit = SubmitField("Upload & Submit Checklist")

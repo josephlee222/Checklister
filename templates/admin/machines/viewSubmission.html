@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Machines{% endblock %}
+{% block nav %}
+    {% include "includes/adminNavControls.html" %}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">checklist</span>
+        <div>
+            <h1>View Submission</h1>
+            <h6 class="m-0">{{m.name}}</h6>
+        </div>
+    </div>
+    <div class="row overflow-auto">
+        <div class="col-lg-4 mb-3 mb-lg-0">
+            <div class="card white mb-3">
+                <div class="card-body">
+                    <h6 class="card-title">Actions</h6>
+                    <div class="d-flex">
+                        <a href="{{ url_for("static", filename="lib/pdfjs/web/viewer.html", file="/"+s.path) }}" target="_blank"><button class="btn custom-btn me-1">Open in new tab</button></a>
+                        <a href="/{{ s.path }}" download="{{ m.name }} - {{ s.createdOn }}.pdf"><button class="btn custom-btn">Download File</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="card white">
+                <div class="card-body">
+                    <h6 class="card-title">Other information</h6>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            {{ infoBox.infoBox("Submitted On", s.timeToString()) }}
+                        </div>
+                        <div class="col-xl-6">
+                            {{ infoBox.infoBox("Submitted By", u.name) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card white">
+                <div class="card-body">
+                    <h6 class="card-title">PDF Preview</h6>
+                    <iframe id="pdf-js-viewer" src="{{ url_for("static", filename="lib/pdfjs/web/viewer.html", file="/"+s.path) }}" width="100%" height="500px" style="border-radius: 5px"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

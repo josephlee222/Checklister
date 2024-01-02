@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}{{m.name}} - Submissions{% endblock %}
+{% block nav %}
+    {% include "includes/adminNavControls.html" %}
+{% endblock %}
+{% block navRight %}
+    {% include "includes/userControls.html" %}
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/datatables.css') }}"/>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.2/r-2.4.0/datatables.min.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center mb-4">
+        <span class="material-icons me-3" style="font-size: 60px">precision_manufacturing</span>
+        <div>
+            <h1>Checklist Submissions</h1>
+            <h6 class="m-0">{{m.name}}</h6>
+        </div>
+    </div>
+    <a href="{{ url_for('machines.viewMachineDetails', id=m.id) }}">
+        <button class="btn custom-btn mb-3">Fill checklist</button>
+    </a>
+    <div class="row overflow-auto">
+        <div class="col-12">
+            <table class="table table-striped w-100" id="machines">
+                <thead>
+                <th>Date Submitted</th>
+                <th>Submitted By</th>
+                <th>Actions</th>
+                </thead>
+                <tbody>
+                {% for submission in s %}
+                    {% if s[submission]["machineId"] == m.id|string %}
+                        <tr>
+                            <td>{{ s[submission].timeToString() }}</td>
+                            <td>{{ u[s[submission]["userId"]]["name"] }}</td>
+                            <td class="text-nowrap">
+                                <a href="{{ url_for('adminMachines.viewSubmission', id=m.id, sid=s[submission]["id"]) }}"><button class="btn custom-btn">View Submission</button></a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            $('#machines').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+{% endblock %}
